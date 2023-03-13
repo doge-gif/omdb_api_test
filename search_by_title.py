@@ -23,6 +23,9 @@ class TitleSearcher(abc.ABC):
         self.media_type = media_type
         self._session = requests.Session()
 
+    def __del__(self):
+        self._session.close()
+
     def _get_search(self, page: int = 1) -> SearchRes:
         res = self._session.get(
             "https://www.omdbapi.com",
